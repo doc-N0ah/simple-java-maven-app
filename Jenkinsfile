@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    options {
+        skipStagesAfterUnstable()
+    }
+
     stages {
 
         stage('Build') {
@@ -18,6 +22,12 @@ pipeline {
                 always {
                     junit 'target/surefire-reports/*.xml'
                 }
+            }
+        }
+
+        stage('Deliver') {
+            steps {
+                bat 'echo Delivering application...'
             }
         }
     }
